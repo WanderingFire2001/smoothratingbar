@@ -65,7 +65,7 @@ class SmoothStarRating extends StatelessWidget {
         RenderBox box = context.findRenderObject();
         var _pos = box.globalToLocal(dragDetails.globalPosition);
         var i = _pos.dx / size;
-        var newRating = allowHalfRating ? i : i.round().toDouble();
+        var newRating = allowHalfRating ? asHalf(i) : i.round().toDouble();
         if (newRating > starCount) {
           newRating = starCount.toDouble();
         }
@@ -76,6 +76,18 @@ class SmoothStarRating extends StatelessWidget {
       },
       child: icon,
     );
+  }
+  
+  double asHalf(double i) {
+    double floor = i.floor();
+    double fraction = i - floor;
+    if (fraction < 0.1) {
+      return floor;
+    }
+    if (fraction > 0.9) {
+      return floor + 1;
+    }
+    return floor + 0.5;
   }
 
   @override
