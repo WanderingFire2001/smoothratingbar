@@ -79,13 +79,13 @@ class SmoothStarRating extends StatelessWidget {
   }
   
   double asHalf(double i) {
-    double floor = i.floor();
+    double floor = i.floorToDouble();
     double fraction = i - floor;
     if (fraction < 0.1) {
       return floor;
     }
     if (fraction > 0.9) {
-      return floor + 1;
+      return floor + 1.0;
     }
     return floor + 0.5;
   }
